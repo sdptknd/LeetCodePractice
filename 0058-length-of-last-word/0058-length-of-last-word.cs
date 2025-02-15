@@ -5,6 +5,7 @@ public class Solution {
         var length = 0;
         for(int i = padRemoved.Length - 1; i >= 0 && s[i] != ' '; i--) length++;
 
+        //console.log('nothing');
         return length;
     }
 }
