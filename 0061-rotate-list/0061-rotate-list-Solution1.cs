@@ -15,11 +15,9 @@ public class Solution {
 
         var (nodesCount, lastNode) = Count(head);
 
-        // Console.WriteLine($"{nodesCount} {lastNode.val}");
         var shift = k % nodesCount;
 
         if(shift == 0) return head;
-        // Console.WriteLine($"{shift}");
 
         var curr = head;
         var count = 1;
@@ -28,7 +26,6 @@ public class Solution {
             count++;
             curr = curr.next;
         }
-        // Console.WriteLine($"{curr.val}");
 
         var newHead = curr.next;
         curr.next = null;
