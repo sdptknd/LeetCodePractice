@@ -1,8 +1,8 @@
 public class Solution {
     public int[][] GenerateMatrix(int n) {
-        var result = new List<int[]>();
-
-        for(int k = 0; k < n; k++) result.Add(new int[n]);
+        int[][] result = new int[n][];
+        for (int row = 0; row < n; row++)
+            result[row] = new int[n];
 
         var direction = new Dictionary<(int, int), (int, int)>{
             {(0, 1), (1, 0)}, {(1, 0), (0, -1)}, {(0, -1), (-1, 0)}, {(-1, 0), (0, 1)}
@@ -34,6 +34,6 @@ public class Solution {
             j += jDir;
         }
 
-        return result.ToArray();
+        return result;
     }
 }
