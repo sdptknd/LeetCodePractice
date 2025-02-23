@@ -6,7 +6,7 @@ public class Solution {
 
         for(int i = 1; i < path.Length; i++){
             if(path[i] == '/'){
-                // Console.WriteLine($"{i}: {curr}");
+                Console.WriteLine($"{i}: {curr}");
                 if(!string.IsNullOrEmpty(curr)){
                     // Console.WriteLine($"{curr} is Not Null. {curr != "."} and {curr == ".."}");
                     if(curr == "..") {
@@ -28,12 +28,12 @@ public class Solution {
                 if(pathStack.Count > 0) pathStack.Pop();
             }
             else if(curr != "."){
-                Console.WriteLine($"Pushing {curr}");
+                // Console.WriteLine($"Pushing {curr}");
                 pathStack.Push(curr);
                 curr = null;
             }
         }
 
-        return "/" + string.Join('/',pathStack.Reverse());
+        return "/" + string.Join('/', pathStack.Reverse());
     }
 }
