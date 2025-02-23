@@ -6,7 +6,7 @@ public class Solution {
 
         for(int i = 1; i < path.Length; i++){
             if(path[i] == '/'){
-                Console.WriteLine($"{i}: {curr}");
+                // Console.WriteLine($"{i}: {curr}");
                 if(!string.IsNullOrEmpty(curr)){
                     // Console.WriteLine($"{curr} is Not Null. {curr != "."} and {curr == ".."}");
                     if(curr == "..") {
@@ -34,6 +34,7 @@ public class Solution {
             }
         }
 
+        // return "/" + string.Join('/', pathStack.Reverse());
         if(pathStack.Count == 0) return "/";
         var finalPath = new StringBuilder();
         while(pathStack.Count > 0) finalPath.Insert(0, $"/{pathStack.Pop()}");
