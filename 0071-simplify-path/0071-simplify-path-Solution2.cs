@@ -34,10 +34,6 @@ public class Solution {
             }
         }
 
-        // return "/" + string.Join('/', pathStack.Reverse());
-        if(pathStack.Count == 0) return "/";
-        var finalPath = new StringBuilder();
-        while(pathStack.Count > 0) finalPath.Insert(0, $"/{pathStack.Pop()}");
-        return finalPath.ToString();
+        return "/" + string.Join('/', pathStack.Reverse());
     }
 }
