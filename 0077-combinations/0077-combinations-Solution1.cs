@@ -6,16 +6,17 @@ public class Solution {
     }
 
     public void BackTrackAndCombine(int start, int end, int k, IList<int> currCombo, IList<IList<int>> allCombos){
-        // Console.WriteLine($"start: {start}, end: {end}, k: {k}");
         if(k == 0) {
             allCombos.Add(currCombo.ToList());
             return;
         }
 
-        for(int i = start; i <= end - k + 1; i++){
-            currCombo.Add(i);
-            BackTrackAndCombine(i+1, end, k-1, currCombo, allCombos);
-            currCombo.RemoveAt(currCombo.Count - 1);
-        }
+        if(start > end - k + 1) return;
+
+        currCombo.Add(start);
+        BackTrackAndCombine(start+1, end, k-1, currCombo, allCombos);
+        currCombo.RemoveAt(currCombo.Count - 1);
+
+        BackTrackAndCombine(start+1, end, k, currCombo, allCombos);
     }
 }
