@@ -1,18 +1,20 @@
 public class Solution {
     public int Reverse(int x) {
-        if(x == -2147483648) return 0;
-        var quotient = Math.Abs(x);
-        int multiplicationLimit = 214748364;
-        int additionLimit = x < 0 ? 8 : 7;
-        var result = 0;
-        do {
-            var remainder = quotient % 10;
-            quotient = quotient / 10;
-            if(result > multiplicationLimit || (result == multiplicationLimit && remainder > additionLimit)){
-                return 0;
-            }
-            result = (result * 10) + remainder;
-        } while(quotient > 0);
-        return result * Math.Sign(x);
+            var rest = x < 0 ? x : -x;
+    var reverse = 0;
+    var multiplierLimit = -214748364;
+    var additiveLimit = x < 0 ? -8 : -7;
+
+    while(rest != 0){
+        var digit = rest % 10;
+        rest = rest / 10;
+
+        if(reverse < multiplierLimit || (reverse == multiplierLimit && digit < additiveLimit))
+            return 0;
+
+        reverse = reverse * 10 + digit;
+    }
+
+    return x < 0 ? reverse : -reverse;
     }
 }
