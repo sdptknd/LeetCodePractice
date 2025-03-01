@@ -33,9 +33,14 @@ public class Solution {
         var tmp = board[row][col];
         board[row][col] = '\0';
 
-        var validPath = PossibleNextCells(row, col, board)
-                .Any(nextCell => 
-                    Explore(board, nextCell.Item1, nextCell.Item2, charIndx+1, word));
+        // var validPath = PossibleNextCells(row, col, board)
+        //         .Any(nextCell => 
+        //             Explore(board, nextCell.Item1, nextCell.Item2, charIndx+1, word));
+
+        var validPath = (row + 1 < board.Length && Explore(board, row + 1, col, charIndx+1, word))
+            || (row > 0 && Explore(board, row - 1, col, charIndx+1, word))
+            || (col + 1 < board[0].Length && Explore(board, row, col + 1, charIndx+1, word))
+            || (col > 0 && Explore(board, row, col - 1, charIndx+1, word));
         
         board[row][col] = tmp;
 
