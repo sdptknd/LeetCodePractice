@@ -7,10 +7,11 @@ public class Solution {
         var lastNum2 = nums[1];
 
         for(int i = 2; i < nums.Length; i++){
-            if(nums[i] == lastNum1 && nums[i] == lastNum2) continue;
-            nums[shiftedIndx++] = nums[i];
+            var currNum = nums[i];
+            if(currNum == lastNum1 && currNum == lastNum2) continue;
+            nums[shiftedIndx++] = currNum;
             lastNum1 = lastNum2;
-            lastNum2 = nums[i];
+            lastNum2 = currNum;
         }
 
         return shiftedIndx;
