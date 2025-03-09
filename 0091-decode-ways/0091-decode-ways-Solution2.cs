@@ -1,28 +1,29 @@
 public class Solution {
     public int NumDecodings(string s) {
-        return NumDecodings2(s, 0, new Dictionary<int,int>());
+        var digits = s.ToArray().Select(c => int.Parse(c.ToString())).ToList();
+        return NumDecodings2(digits, 0, new Dictionary<int,int>());
     }
 
-    public int NumDecodings2(string s, int indx, Dictionary<int,int> memo){
-        if(indx >= s.Length) return 1;
+    public int NumDecodings2(List<int> d, int indx, Dictionary<int,int> memo){
+        if(indx >= d.Count) return 1;
         if(memo.TryGetValue(indx, out var numDecodings)) return numDecodings;
 
         var currPosNumDecodings = 0;
-        var currDigit = int.Parse(s[indx].ToString());
+        var currDigit = d[indx];
 
         if(currDigit > 0 && currDigit <= 26)
-            currPosNumDecodings += NumDecodings2(s, indx+1, memo);
+            currPosNumDecodings += NumDecodings2(d, indx+1, memo);
         
-        if(indx == s.Length - 1) {
+        if(indx == d.Count - 1) {
             memo[indx] = currPosNumDecodings;
             return currPosNumDecodings;
         }
 
-        var nextDigit = int.Parse(s[indx+1].ToString());
+        var nextDigit = d[indx+1];
         var num = currDigit * 10 + nextDigit;
 
         if(num > 9 && num <= 26)
-            currPosNumDecodings += NumDecodings2(s, indx+2, memo);
+            currPosNumDecodings += NumDecodings2(d, indx+2, memo);
 
         memo[indx] = currPosNumDecodings;
         return currPosNumDecodings;
