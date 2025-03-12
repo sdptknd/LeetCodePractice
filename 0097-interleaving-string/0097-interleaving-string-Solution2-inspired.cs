@@ -1,28 +1,19 @@
 public class Solution {
     public bool IsInterleave(string s1, string s2, string s3) {
-        var memo = new Dictionary<(int, int, int, bool), bool>();
-        return IsInterleave2(s1, s2, s3, 0, 0, 0, 0, 0, true, memo)
-               ||
-               IsInterleave2(s1, s2, s3, 0, 0, 0, 0, 0, false, memo);
-    }
+        if(s3.Length != (s1.Length + s2.Length)) return false;
 
-    public bool IsInterleave2(string s1, string s2, string s3, int s1i, int s2i, int s3i, int s1c, int s2c, bool isLastS1, Dictionary<(int, int, int, bool), bool> memo){
-        // Console.WriteLine($"s1i: {s1i}, s2i: {s2i}, s3i: {s3i}, s1c: {s1c}, s2c: {s2c}, isLastS1: {isLastS1}");
-        if(memo.TryGetValue((s1i, s2i, s3i, isLastS1), out var result)) return result;
+        var dp = new bool[s1.Length + 1, s2.Length + 1];
+        dp[s1.Length,s2.Length] = true;
 
-        if(s3i == s3.Length){
-            result = (s1i == s1.Length && s2i == s2.Length && Math.Abs(s1c - s2c) <= 1);
-            memo[(s1i, s2i, s3i, isLastS1)] = result;
-            return result;
+        for(int i = s1.Length; i >= 0; i--){
+            for(int j = s2.Length; j >= 0; j--){
+                if(i < s1.Length && dp[i+1,j] && s1[i] == s3[i+j])
+                    dp[i,j] = true;
+                if(j < s2.Length && dp[i,j+1] && s2[j] == s3[i+j])
+                    dp[i,j] = true;
+            }
         }
 
-        result = (s1i < s1.Length && s1[s1i] == s3[s3i] 
-                  && IsInterleave2(s1, s2, s3, s1i+1, s2i, s3i+1, isLastS1 ? s1c : s1c+1, s2c, true, memo))
-                  ||
-                 (s2i < s2.Length && s2[s2i] == s3[s3i]
-                  && IsInterleave2(s1, s2, s3, s1i, s2i+1, s3i+1, s1c, isLastS1 ? s2c+1 : s2c, false, memo));
-
-        memo[(s1i, s2i, s3i, isLastS1)] = result;
-        return result;
+        return dp[0,0];
     }
 }
