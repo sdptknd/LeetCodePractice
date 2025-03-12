@@ -1,9 +1,9 @@
 public class Solution {
     public bool IsInterleave(string s1, string s2, string s3) {
         var memo = new Dictionary<(int, int, int, bool), bool>();
-        return IsInterleave2(s1, s2, s3, 0, 0, 0, 0, 0, true, memo);
-            //    ||
-            //    IsInterleave2(s1, s2, s3, 0, 0, 0, 0, 0, false, memo);
+        return IsInterleave2(s1, s2, s3, 0, 0, 0, 0, 0, true, memo)
+               ||
+               IsInterleave2(s1, s2, s3, 0, 0, 0, 0, 0, false, memo);
     }
 
     public bool IsInterleave2(string s1, string s2, string s3, int s1i, int s2i, int s3i, int s1c, int s2c, bool isLastS1, Dictionary<(int, int, int, bool), bool> memo){
