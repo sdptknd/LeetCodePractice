@@ -19,7 +19,7 @@ public class Solution {
 
         while(currLevel.Any()){
             // Console.WriteLine(string.Join(',', currLevel.Select(node => node.val)));
-            result.AddRange(currLevel.Select(node => node.val).ToList());
+            result.Add(currLevel.Select(node => node.val).ToList());
             currLevel = 
                 currLevel
                 .SelectMany(node => new List<TreeNode> {node.left, node.right})
