@@ -19,12 +19,15 @@ public class Solution {
 
         while(currLevel.Any()){
             // Console.WriteLine(string.Join(',', currLevel.Select(node => node.val)));
-            result.Add(currLevel.Select(node => node.val).ToList());
+            // result.Add(currLevel.Select(node => node.val).ToList());
             var newCurrLevel = new List<TreeNode>();
+            var currLevelVals = new List<int>();
             currLevel.ForEach(node => {
+                currLevelVals.Add(node.val);
                 if(node.left != null) newCurrLevel.Add(node.left);
                 if(node.right != null) newCurrLevel.Add(node.right);
             });
+            result.Add(currLevelVals);
             currLevel = newCurrLevel;
         }
 
