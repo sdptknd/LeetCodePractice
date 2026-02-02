@@ -21,7 +21,7 @@ public class Solution {
 
     public Node CopyListOnly(Node node, Dictionary<Node, Node> nodesMapping) {
         if(node == null) return null;
-        if(nodesMapping.TryGetValue(node, out var mappedNode)) return mappedNode;
+        if(nodesMapping.ContainsKey(node)) return nodesMapping[node];
         var copiedNode = new Node(node.val);
         nodesMapping.Add(node, copiedNode);
         copiedNode.next = CopyListOnly(node.next, nodesMapping);
