@@ -16,24 +16,15 @@ public class Node {
 public class Solution {
     public Node CopyRandomList(Node head) {
         var nodesMapping = new Dictionary<Node, Node> ();
-        var listCopy = CopyListOnly(head, nodesMapping);
-        var currNode = listCopy;
-
-        while(currNode != null){
-            if(currNode.random != null)
-                currNode.random = nodesMapping[currNode.random];
-            currNode = currNode.next;
-        }
-
-        return listCopy;
+        return CopyListOnly(head, nodesMapping);
     }
 
     public Node CopyListOnly(Node node, Dictionary<Node, Node> nodesMapping) {
         if(node == null) return null;
         var copiedNode = new Node(node.val);
-        copiedNode.next = CopyListOnly(node.next, nodesMapping);
-        copiedNode.random = node.random;
         nodesMapping.Add(node, copiedNode);
+        copiedNode.next = node.next == null ? null : (nodesMapping.TryGetValue(node.next, out var nextNode) ? nextNode : CopyListOnly(node.next, nodesMapping));
+        copiedNode.random = node.random == null ? null : (nodesMapping.TryGetValue(node.random, out var randomNode) ? randomNode : CopyListOnly(node.random, nodesMapping));
         return copiedNode;
     }
 
