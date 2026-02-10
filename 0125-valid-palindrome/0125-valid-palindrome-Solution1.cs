@@ -1,15 +1,15 @@
 public class Solution {
     public bool IsPalindrome(string s) {
-        return PalindromeRec(s.ToLower(), 0, s.Length-1);
+        return isPalindromeRec(s, 0, s.Length - 1);
     }
 
-    public bool PalindromeRec(string s, int left, int right){
-        if(left < s.Length && !char.IsLetterOrDigit(s[left])) return PalindromeRec(s, left+1, right);
-        if(right >= 0 && !char.IsLetterOrDigit(s[right])) return PalindromeRec(s, left, right-1);
+    public bool isPalindromeRec(string s, int left, int right){
         if(left >= right) return true;
 
-        if(s[left] != s[right]) return false;
+        char leftChar = s[left], rightChar = s[right];
 
-        return PalindromeRec(s, left + 1, right -1);
+        if(!Char.IsLetterOrDigit(leftChar)) return isPalindromeRec(s, left + 1, right);
+        else if(!Char.IsLetterOrDigit(rightChar)) return isPalindromeRec(s, left, right - 1);
+        else return Char.ToLower(leftChar) == Char.ToLower(rightChar) && isPalindromeRec(s, left + 1, right - 1);
     }
 }
