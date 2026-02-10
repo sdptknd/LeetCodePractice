@@ -1,9 +1,11 @@
 public class Solution {
     public int MaxProfit(int[] prices) {
+        var buyPrice = prices[0];
         var profit = 0;
 
-        for(var i = 1; i < prices.Length; i++){
-            if(prices[i] > prices[i-1]) profit += (prices[i] - prices[i-1]);
+        for(int i = 1; i < prices.Length; i++){
+            if(prices[i] > buyPrice) profit += (prices[i] - buyPrice);
+            buyPrice = prices[i];
         }
 
         return profit;
