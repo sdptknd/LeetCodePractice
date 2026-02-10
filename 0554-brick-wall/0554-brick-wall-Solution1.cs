@@ -6,7 +6,7 @@ public class Solution {
             int breakPos = 0;
             for(int i = 0; i <= row.Count - 2; i++){
                 breakPos += row[i];
-                breakMapping[breakPos] = breakMapping.TryGetValue(breakPos, out var count) ? (count + 1) : 1;
+                breakMapping[breakPos] = breakMapping.GetValueOrDefault(breakPos, 0) + 1;
             }
         }
 
