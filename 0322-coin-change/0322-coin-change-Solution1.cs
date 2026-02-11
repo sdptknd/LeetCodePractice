@@ -7,7 +7,7 @@ public class Solution {
     }
 
     private int FindMinCoinCount(int[] coins, int amount, int index, Dictionary<(int, int), int> countCache){
-        if(amount == 0) return 0;
+        // if(amount == 0) return 0;
         if(index == 0) {
             if(amount % coins[0] == 0) return amount / coins[0];
             else return int.MaxValue;
