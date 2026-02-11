@@ -8,7 +8,7 @@ public class Solution {
         // return minCoinCount == int.MaxValue ? -1 : minCoinCount;
 
         for(var remaining = 0; remaining <= amount; remaining++){
-            Console.WriteLine($"remaining: {remaining}");
+            // Console.WriteLine($"remaining: {remaining}");
             if(remaining % coins[0] == 0) prev[remaining] = remaining / coins[0];
             else prev[remaining] = int.MaxValue;
         }
@@ -17,7 +17,7 @@ public class Solution {
         for(var coinIndx = 1; coinIndx < coins.Length; coinIndx++){
             var curr = new int[amount + 1];
             for(var remaining = 0; remaining <= amount; remaining++){
-                Console.WriteLine($"coinIndx: {coinIndx}, remaining: {remaining}");
+                // Console.WriteLine($"coinIndx: {coinIndx}, remaining: {remaining}");
                 var withoutCurrCoin = prev[remaining];
                 var withCurrCoin = int.MaxValue;
                 if(coins[coinIndx] <= remaining){
