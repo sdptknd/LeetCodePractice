@@ -1,31 +1,36 @@
 public class Solution {
     public int CoinChange(int[] coins, int amount) {
-        var countCache = new Dictionary<(int, int), int>();
-        // var prev = new List<int>(coins.Length);
-        // var prev2
+        // var countCache = new Dictionary<(int, int), int>();
+        var prev = new int[amount+1];
+        int[] prev2 = null;
         // var minCoinCount = FindMinCoinCount(coins, amount, coins.Length - 1, countCache);
 
         // return minCoinCount == int.MaxValue ? -1 : minCoinCount;
 
         for(var remaining = 0; remaining <= amount; remaining++){
-            if(remaining % coins[0] == 0) countCache[(remaining, 0)] = remaining / coins[0];
-            else countCache[(remaining, 0)] = int.MaxValue;
+            Console.WriteLine($"remaining: {remaining}");
+            if(remaining % coins[0] == 0) prev[remaining] = remaining / coins[0];
+            else prev[remaining] = int.MaxValue;
         }
 
         
-            for(var coinIndx = 1; coinIndx < coins.Length; coinIndx++){
-                for(var remaining = 0; remaining <= amount; remaining++){
-                var withoutCurrCoin = countCache[(remaining, coinIndx-1)];
+        for(var coinIndx = 1; coinIndx < coins.Length; coinIndx++){
+            var curr = new int[amount + 1];
+            for(var remaining = 0; remaining <= amount; remaining++){
+                Console.WriteLine($"coinIndx: {coinIndx}, remaining: {remaining}");
+                var withoutCurrCoin = prev[remaining];
                 var withCurrCoin = int.MaxValue;
                 if(coins[coinIndx] <= remaining){
-                    var prevMinCount = countCache[(remaining - coins[coinIndx], coinIndx)];
+                    var prevMinCount = curr[remaining - coins[coinIndx]];
                     withCurrCoin = prevMinCount == int.MaxValue ? int.MaxValue : prevMinCount + 1;
                 }
-                countCache[(remaining, coinIndx)] = Math.Min(withoutCurrCoin, withCurrCoin);
+                curr[remaining] = Math.Min(withoutCurrCoin, withCurrCoin);
             }
+            prev2 = prev;
+            prev = curr;
         }
 
-        var minCount = countCache[(amount, coins.Length - 1)];
+        var minCount = prev[amount];
         return minCount == int.MaxValue ? -1 : minCount;
     }
 
