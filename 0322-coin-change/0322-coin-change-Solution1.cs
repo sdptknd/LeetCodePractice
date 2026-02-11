@@ -1,6 +1,8 @@
 public class Solution {
     public int CoinChange(int[] coins, int amount) {
         var countCache = new Dictionary<(int, int), int>();
+        // var prev = new List<int>(coins.Length);
+        // var prev2
         // var minCoinCount = FindMinCoinCount(coins, amount, coins.Length - 1, countCache);
 
         // return minCoinCount == int.MaxValue ? -1 : minCoinCount;
@@ -10,8 +12,9 @@ public class Solution {
             else countCache[(remaining, 0)] = int.MaxValue;
         }
 
-        for(var remaining = 0; remaining <= amount; remaining++){
+        
             for(var coinIndx = 1; coinIndx < coins.Length; coinIndx++){
+                for(var remaining = 0; remaining <= amount; remaining++){
                 var withoutCurrCoin = countCache[(remaining, coinIndx-1)];
                 var withCurrCoin = int.MaxValue;
                 if(coins[coinIndx] <= remaining){
