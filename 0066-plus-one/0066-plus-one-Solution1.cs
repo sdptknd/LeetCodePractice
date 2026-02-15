@@ -1,17 +1,16 @@
 public class Solution {
     public int[] PlusOne(int[] digits) {
-        var result = digits.ToList();
+        var digs = digits.ToList();
+        var carry = 1;
 
-        for(var pos = digits.Length - 1; pos >= 0; pos--){
-            if(result[pos] < 9){
-                result[pos]++;
-                return result.ToArray();
-            }
-            result[pos] = 0;
+        for(int i = digs.Count - 1; i >= 0; i--){
+            var total = digs[i] + carry;
+            digs[i] = total % 10;
+            carry = total / 10;
         }
 
-        result.Insert(0, 1);
+        if(carry > 0) digs.Insert(0, carry);
 
-        return result.ToArray();
+        return digs.ToArray();
     }
 }
