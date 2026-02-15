@@ -1,18 +1,36 @@
 public class Solution {
     public string LongestPalindrome(string s) {
-        int largestStart = 0, largestLength = 0;
-        for(var i = s.Length; i > 0; i--){
-            for(var j = 0; j <= s.Length - i; j++){
-                if(IsPallindrom(s, j, i + j - 1)){
-                    return s.Substring(j, i);
-                }
+        int maxPalStart = 0, maxPalLength = 0;
+
+        for(int i = 0; i < s.Length; i++){
+            int left = i - 1, right = i + 1;
+
+            while(left >= 0 && right < s.Length && s[left] == s[right]) {
+                left--;
+                right++;
+            }
+
+            var length = right - left - 1;
+            if(maxPalLength < length){
+                maxPalLength = length;
+                maxPalStart = left + 1;
+            }
+
+            left = i;
+            right = i+1;
+
+            while(left >= 0 && right < s.Length && s[left] == s[right]) {
+                left--;
+                right++;
+            }
+
+            length = right - left - 1;
+            if(maxPalLength < length){
+                maxPalLength = length;
+                maxPalStart = left + 1;
             }
         }
-        return "";
-    }
 
-    private bool IsPallindrom(string s, int start, int end){
-        if(end - start < 2) return s[start] == s[end];
-        return s[start] == s[end] && IsPallindrom(s, start + 1, end - 1);
+        return s.Substring(maxPalStart, maxPalLength);
     }
 }
