@@ -1,21 +1,30 @@
 public class Solution {
     public int UniquePathsWithObstacles(int[][] obstacleGrid) {
-        var m = obstacleGrid.Length;
-        var n = obstacleGrid[0].Length;
-        // if(obstacleGrid[0][0] == 1 || obstacleGrid[m-1][n-1] == 1) return 0;
-        int[,] matrix = new int[m,n];
-        matrix[0,0] = 1 - obstacleGrid[0][0];
+        int[] prev = null;
 
-        for(int i = 1; i < m; i++)
-            matrix[i,0] = obstacleGrid[i][0] == 1 ? 0 : matrix[i-1,0];
-        
-        for(int i = 1; i < n; i++)
-            matrix[0,i] = obstacleGrid[0][i] == 1 ? 0 : matrix[0,i-1];
+        for(int i = 0; i < obstacleGrid.Length; i++){
+            var curr = new int[obstacleGrid[0].Length];
+            for(int j = 0; j < obstacleGrid[0].Length; j++){
+                if(obstacleGrid[i][j] == 1){
+                    curr[j] = 0;
+                    continue;
+                }
 
-        for(int row = 1; row<m; row++)
-            for(int col = 1; col<n; col++)
-                matrix[row,col] = obstacleGrid[row][col] == 1 ? 0 : (matrix[row-1,col] + matrix[row,col-1]);
-        
-        return matrix[m-1,n-1];
+                if(i == 0 && j == 0){
+                    curr[0] = 1;
+                    continue;
+                }
+
+                int left = 0, upward = 0;
+
+                if(j > 0) left = curr[j-1];// memo[(i, j-1)];
+                if(i > 0) upward = prev[j]; //memo[(i-1, j)];
+
+                curr[j] = left + upward;
+            }
+            prev = curr;
+        }
+
+        return prev[^1];
     }
 }
