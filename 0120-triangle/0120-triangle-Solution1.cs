@@ -1,16 +1,21 @@
 public class Solution {
     public int MinimumTotal(IList<IList<int>> triangle) {
-        var nextRow = triangle[triangle.Count - 1];
+        // var memo = new Dictionary<(int, int), int> {{(0,0), triangle[0][0]}};
+        var prev = new Dictionary<int, int> {{0, triangle[0][0]}};
 
-        for(var i = triangle.Count - 2; i >= 0; i--){
-            var newNextRow = new List<int>();
-            
-            for(var j = 0; j < triangle[i].Count; j++)
-                newNextRow.Add(triangle[i][j] + Math.Min(nextRow[j], nextRow[j+1]));
+        for(var i = 1; i < triangle.Count; i++){
+            var row = triangle[i];
+            var curr = new Dictionary<int, int>();
+            for(var j = 0; j < row.Count; j++){
+                int leftPath = int.MaxValue, rightPath = int.MaxValue;
 
-            nextRow = newNextRow;
+                if(j != 0) leftPath = prev[j-1];
+                if(j < row.Count - 1) rightPath = prev[j];
+                curr[j] = Math.Min(leftPath, rightPath) + row[j];
+            }
+            prev = curr;
         }
 
-        return nextRow[0];
+        return prev.Values.Min();
     }
 }
