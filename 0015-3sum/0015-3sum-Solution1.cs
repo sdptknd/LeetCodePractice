@@ -1,34 +1,29 @@
 public class Solution {
     public IList<IList<int>> ThreeSum(int[] nums) {
         var sorted = nums.Order().ToList();
-        Console.WriteLine(string.Join(',',sorted));
-        var collection = new List<IList<int>>();
+        var ans = new List<IList<int>>();
 
-        for(int i = 0; i <= sorted.Count - 3; i++){
-            if(i > 0 && sorted[i-1] == sorted[i]) continue;
+        for(var l = 0; l < sorted.Count - 2; l++){
+            if(l > 0 && sorted[l-1] == sorted[l]) continue;
 
-            int j = i + 1, k = sorted.Count - 1;
+            int m = l+1, r = sorted.Count - 1;
 
-            while(j < k){
-                long sum = (long) sorted[i] + sorted[j] + sorted[k];
+            while(m < r){
+                long sum = sorted[l] + sorted[m] + sorted[r];
                 if(sum == 0){
-                    collection.Add(new List<int> {sorted[i], sorted[j], sorted[k]});
-                    j++;
-                    k--;
-                    while(j < sorted.Count && sorted[j] == sorted[j-1]) j++;
-                    while(k > 0 && sorted[k] == sorted[k+1]) k--;
+                    ans.Add(new List<int>{sorted[l], sorted[m], sorted[r]});
+                    m++;
+                    r--;
+                    while(m < sorted.Count && sorted[m-1] == sorted[m]) m++;
+                    while(r > 0 && sorted[r+1] == sorted[r]) r--;
                 } else if(sum < 0){
-                    j++;
+                    m++;
                 } else {
-                    k--;
+                    r--;
                 }
             }
         }
-        return collection;
+
+        return ans;
     }
 }
-
-
-// -1 0 1 2 -1 -4
-// -4 -1 -1 0 1 2
-//. 0. 1. 2.3 4 5
