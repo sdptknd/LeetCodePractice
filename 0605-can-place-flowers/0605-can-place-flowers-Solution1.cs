@@ -1,17 +1,18 @@
 public class Solution {
     public bool CanPlaceFlowers(int[] flowerbed, int n) {
-        int currPos = 0;
+        int i = 0, flowers = n;
 
-        while(currPos < flowerbed.Length && n > 0){
-            var next = currPos < (flowerbed.Length - 1) ? flowerbed[currPos+1] : 0;
-
-            if(next == 0 && flowerbed[currPos] == 0) {
-                n--;
-                currPos += 2;
-            }else if(flowerbed[currPos] == 1) currPos += 2;
-            else currPos += 1;
+        while(i < flowerbed.Length){
+            if(flowerbed[i] == 1){
+                i += 2;
+            } else if(i == flowerbed.Length - 1 || flowerbed[i+1] == 0){
+                flowers--;
+                i += 2;
+            } else {
+                i++;
+            }
         }
 
-        return n <= 0;
+        return flowers == 0;
     }
 }
